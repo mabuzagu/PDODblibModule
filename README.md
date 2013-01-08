@@ -50,6 +50,30 @@ Installing
     $ php composer.phar update
     ```
 
+Configuration
+============================
+
+Add this to your autoload folder:
+```php
+<?php
+
+return array(
+		'doctrine' => array(
+				'connection' => array(
+						'orm_default' => array(
+								'driverClass' => 'PDODblibModule\Doctrine\DBAL\Driver\PDODblib\Driver',
+								'params' => array(
+										'host'     => '<host>',
+										'port'     => '<port>',
+										'user'     => '<user>',	
+										'password' => '<password>',
+										'dbname'   => '<dbname>',
+								)
+						)
+				)
+		),
+);
+```
 
 
 Putting everything together
