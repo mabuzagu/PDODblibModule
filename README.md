@@ -6,12 +6,16 @@ PDO DBlib Module for Zend 2
 Introduction
 =====================
 
+
 Doctrine 2 does support any method of connecting to SQL Server on a Linux box. Here's a simple driver that supports PDO DBlib. Many tests fail, but most are related to shortcomings of the PDODBlib driver. There is a patch in the PHP repo to add transaction and lastInsertId support, but this package has some minor work arounds.
 
 This bundle requires the following:
 * pdo_dblib
 * FreeTDS
 
+
+For Symphony Bundle:   [PDODblibBundle] (https://github.com/trooney/PDODblibBundle) (latest master)
+ 
 FreeTDS configuration
 =====================
 
@@ -29,7 +33,6 @@ DBLib requires FreeTDS. We can't go into detail about configuring FreeTDS, but t
 
 Installing
 ============================
-
 
 #### With composer
 
