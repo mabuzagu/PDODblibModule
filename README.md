@@ -9,9 +9,12 @@ Introduction
 
 Doctrine 2 does support any method of connecting to SQL Server on a Linux box. Here's a simple driver that supports PDO DBlib. Many tests fail, but most are related to shortcomings of the PDODBlib driver. There is a patch in the PHP repo to add transaction and lastInsertId support, but this package has some minor work arounds.
 
-This bundle requires the following:
-* pdo_dblib
-* FreeTDS
+Dependecies
+=====================
+- pdo_dblib
+- FreeTDS
+- [DoctrineModule](https://github.com/doctrine/DoctrineModule)
+- [DoctrineORMModule](https://github.com/doctrine/DoctrineORMModule)
 
 
 For Symphony Bundle:   [PDODblibBundle] (https://github.com/trooney/PDODblibBundle) (latest master)
@@ -50,10 +53,26 @@ Installing
     $ php composer.phar update
     ```
 
-Configuration
-============================
 
-Add this to your autoload folder:
+#### Post Installation
+
+1. Enabling it in your `application.config.php`file.
+
+    ```php
+    <?php
+    return array(
+        'modules' => array(
+            // ...
+            'DoctrineModule',
+            'DoctrineORMModule',
+			'PDODblibModule',
+        ),
+        // ...
+    );
+    ```
+
+2. Add this to your autoload folder
+
 ```php
 <?php
 
