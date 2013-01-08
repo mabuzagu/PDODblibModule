@@ -40,7 +40,7 @@ Installing
 
     ```json
     "require": {
-        "mabuzagu/PDODblibModule": "dev-master",
+        "mabuzagu/pdo-dblib-module": "dev-master",
     }
     ```
 
