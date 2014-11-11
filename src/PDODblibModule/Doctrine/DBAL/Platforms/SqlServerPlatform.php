@@ -25,4 +25,9 @@ class SqlServerPlatform extends \Doctrine\DBAL\Platforms\SQLServer2008Platform
                 WHERE     obj.type = 'U'
                 AND       obj.name = '$table'";
     }
+
+    public function getDateTimeFormatString()
+    {
+        return 'Y-m-d H:i:s';
+    }
 }
