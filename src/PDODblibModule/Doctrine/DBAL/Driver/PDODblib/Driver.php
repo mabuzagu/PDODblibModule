@@ -66,7 +66,11 @@ class Driver implements \Doctrine\DBAL\Driver {
 	}
 
 	public function getDatabasePlatform() {
-		
+     
+        if (class_exists('PDODblibModule\\Doctrine\\DBAL\\Plaforms\\SqlServerPlatform')) {            
+			return new \PDODblibModule\Doctrine\DBAL\Plaforms\SqlServerPlatform();
+		}
+
 		if (class_exists('\\Doctrine\\DBAL\\Platforms\\SQLServer2008Platform')) {
 			return new \Doctrine\DBAL\Platforms\SQLServer2008Platform();
 		}
