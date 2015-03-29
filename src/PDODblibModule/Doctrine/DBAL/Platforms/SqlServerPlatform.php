@@ -1,5 +1,5 @@
 <?php
-namespace PDODblibModule\Doctrine\DBAL\Plaforms;
+namespace PDODblibModule\Doctrine\DBAL\Platforms;
 
 class SqlServerPlatform extends \Doctrine\DBAL\Platforms\SQLServer2008Platform
 {

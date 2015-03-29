@@ -52,7 +52,6 @@ class Connection extends \Doctrine\DBAL\Driver\PDOConnection implements \Doctrin
 			return $this->_pdoTransactionsSupport;
 		}
 
-		$supported = false;
 		try {
 			$supported = true;
 			parent::beginTransaction();
@@ -107,7 +106,6 @@ class Connection extends \Doctrine\DBAL\Driver\PDOConnection implements \Doctrin
 			return $this->_pdoLastInsertIdSupport;
 		}
 
-		$supported = false;
 		try {
 			$supported = true;
 			parent::lastInsertId();
