@@ -66,9 +66,9 @@ class Driver implements \Doctrine\DBAL\Driver {
 	}
 
 	public function getDatabasePlatform() {
-     
-        if (class_exists('PDODblibModule\\Doctrine\\DBAL\\Plaforms\\SqlServerPlatform')) {            
-			return new \PDODblibModule\Doctrine\DBAL\Plaforms\SqlServerPlatform();
+
+        if (class_exists('PDODblibModule\\Doctrine\\DBAL\\Platforms\\SqlServerPlatform')) {
+			return new \PDODblibModule\Doctrine\DBAL\Platforms\SqlServerPlatform();
 		}
 
 		if (class_exists('\\Doctrine\\DBAL\\Platforms\\SQLServer2008Platform')) {
@@ -79,6 +79,7 @@ class Driver implements \Doctrine\DBAL\Driver {
 			return new \Doctrine\DBAL\Platforms\SQLServer2005Platform();
 		}
 
+        // to support Doctrine 2.1.x and 2.0.x
 		if (class_exists('\\Doctrine\\DBAL\\Platforms\\MsSqlPlatform')) {
 			return new \Doctrine\DBAL\Platforms\MsSqlPlatform();
 		}
