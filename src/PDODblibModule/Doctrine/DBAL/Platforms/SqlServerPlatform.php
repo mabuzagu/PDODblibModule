@@ -1,8 +1,14 @@
 <?php
+
 namespace PDODblibModule\Doctrine\DBAL\Platforms;
 
-class SqlServerPlatform extends \Doctrine\DBAL\Platforms\SQLServer2008Platform
+use Doctrine\DBAL\Platforms\SQLServer2008Platform;
+
+class SqlServerPlatform extends SQLServer2008Platform
 {
+    /**
+     * {@inheritDoc}
+     */
     public function getListTableColumnsSQL($table, $database = null)
     {
         return "SELECT    CAST(col.name AS text) as name,
@@ -26,6 +32,9 @@ class SqlServerPlatform extends \Doctrine\DBAL\Platforms\SQLServer2008Platform
                 AND       obj.name = '$table'";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getDateTimeFormatString()
     {
         return 'Y-m-d H:i:s';
