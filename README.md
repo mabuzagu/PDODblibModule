@@ -1,7 +1,7 @@
 PDODblibModule
 ==============
 
-PDO DBlib Module for Zend 2
+PDO DBlib Module for Zend
 
 Introduction
 =====================
@@ -60,15 +60,15 @@ Installing
 
     ```php
     <?php
-    return array(
-        'modules' => array(
+    return [
+        'modules' => [
             // ...
             'DoctrineModule',
             'DoctrineORMModule',
 			'PDODblibModule',
-        ),
+        ],
         // ...
-    );
+    ];
     ```
 
 2. Add this to your autoload folder
@@ -76,22 +76,22 @@ Installing
 ```php
 <?php
 
-return array(
-		'doctrine' => array(
-				'connection' => array(
-						'orm_default' => array(
-								'driverClass' => 'PDODblibModule\Doctrine\DBAL\Driver\PDODblib\Driver',
-								'params' => array(
+return [
+		'doctrine' => [
+				'connection' => [
+						'orm_default' => [
+								'driverClass' => PDODblibModule\Doctrine\DBAL\Driver\PDODblib\Driver::class,
+								'params' => [
 										'host'     => '<host>',
 										'port'     => '<port>',
 										'user'     => '<user>',	
 										'password' => '<password>',
 										'dbname'   => '<dbname>',
-								)
-						)
-				)
-		),
-);
+								],
+						],
+				],
+		],
+];
 ```
 
 
@@ -127,10 +127,10 @@ Doctrine2's test suite does not allow you to add database drivers on the fly. If
 ```php
 final class DriverManager
 {
-    private static $_driverMap = array(
+    private static $_driverMap = [
 		/* ... snip ... */
-        'pdo_dblib' => 'Doctrine\DBAL\Driver\PDODblib\Driver',
-    );
+        'pdo_dblib' => Doctrine\DBAL\Driver\PDODblib\Driver::class,
+    ];
 }
 ```
 

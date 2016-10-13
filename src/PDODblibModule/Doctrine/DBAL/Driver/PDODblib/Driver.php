@@ -21,88 +21,90 @@
 
 namespace PDODblibModule\Doctrine\DBAL\Driver\PDODblib;
 
+use Doctrine\DBAL\Connection as DoctrineConnection;
+use Doctrine\DBAL\Schema\SQLServerSchemaManager;
+use PDODblibModule\Doctrine\DBAL\Platforms\SqlServerPlatform;
+
 /**
  * The PDO-based Dblib driver.
  *
  * @since 2.0
  */
-class Driver implements \Doctrine\DBAL\Driver {
-	public function connect(array $params, $username = null, $password = null, array $driverOptions = array()) {
-		return new Connection(
-			$this->_constructPdoDsn($params),
-			$username,
-			$password,
-			$driverOptions
-		);
-	}
+class Driver implements \Doctrine\DBAL\Driver
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function connect(array $params, $username = null, $password = null, array $driverOptions = [])
+    {
+        return new Connection(
+            $this->_constructPdoDsn($params),
+            $username,
+            $password,
+            $driverOptions
+        );
+    }
 
-	/**
-	 * Constructs the Dblib PDO DSN.
-	 *
-	 * @return string  The DSN.
-	 */
-	private function _constructPdoDsn(array $params) {
-		$dsn = 'dblib:host=';
+    /**
+     * Constructs the Dblib PDO DSN.
+     *
+     * @param array $params
+     * @return string The DSN.
+     */
+    private function _constructPdoDsn(array $params)
+    {
+        $dsn = 'dblib:host=';
 
-		if (isset($params['host'])) {
-			$dsn .= $params['host'];
-		}
+        if (isset($params['host'])) {
+            $dsn .= $params['host'];
+        }
 
-		if (isset($params['port']) && !empty($params['port'])) {
-			$portSeparator = (PATH_SEPARATOR === ';') ? ',' : ':';
-			$dsn .= $portSeparator . $params['port'];
-		}
+        if (isset($params['port']) && !empty($params['port'])) {
+            $portSeparator = (PATH_SEPARATOR == ';') ? ',' : ':';
+            $dsn .= $portSeparator . $params['port'];
+        }
 
-		if (isset($params['dbname'])) {
-			$dsn .= ';dbname=' . $params['dbname'];
-		}
+        if (isset($params['dbname'])) {
+            $dsn .= ';dbname=' . $params['dbname'];
+        }
 
-		if (isset($params['charset'])) {
-			$dsn .= ';charset=' . $params['charset'];
-		}
+        if (isset($params['charset'])) {
+            $dsn .= ';charset=' . $params['charset'];
+        }
 
-		return $dsn;
+        return $dsn;
+    }
 
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getDatabasePlatform()
+    {
+        return new SqlServerPlatform();
+    }
 
-	public function getDatabasePlatform() {
+    /**
+     * {@inheritdoc}
+     */
+    public function getSchemaManager(DoctrineConnection $conn)
+    {
+        return new SQLServerSchemaManager($conn);
+    }
 
-        if (class_exists('PDODblibModule\\Doctrine\\DBAL\\Platforms\\SqlServerPlatform')) {
-			return new \PDODblibModule\Doctrine\DBAL\Platforms\SqlServerPlatform();
-		}
+    /**
+     * {@inheritdoc}
+     */
+    public function getName()
+    {
+        return 'pdo_dblib';
+    }
 
-		if (class_exists('\\Doctrine\\DBAL\\Platforms\\SQLServer2008Platform')) {
-			return new \Doctrine\DBAL\Platforms\SQLServer2008Platform();
-		}
-		
-		if (class_exists('\\Doctrine\\DBAL\\Platforms\\SQLServer2005Platform')) {
-			return new \Doctrine\DBAL\Platforms\SQLServer2005Platform();
-		}
-
-        // to support Doctrine 2.1.x and 2.0.x
-		if (class_exists('\\Doctrine\\DBAL\\Platforms\\MsSqlPlatform')) {
-			return new \Doctrine\DBAL\Platforms\MsSqlPlatform();
-		}
-	}
-
-	public function getSchemaManager(\Doctrine\DBAL\Connection $conn) {
-		if (class_exists('\\Doctrine\\DBAL\\Schema\\SQLServerSchemaManager')) {
-			return new \Doctrine\DBAL\Schema\SQLServerSchemaManager($conn);
-		}
-
-		if (class_exists('\\Doctrine\\DBAL\\Schema\\MsSqlSchemaManager')) {
-			return new \PDODblibModule\Doctrine\DBAL\Schema\PDODblibSchemaManager($conn);
-		}
-
-
-	}
-
-	public function getName() {
-		return 'pdo_dblib';
-	}
-
-	public function getDatabase(\Doctrine\DBAL\Connection $conn) {
-		$params = $conn->getParams();
-		return $params['dbname'];
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getDatabase(DoctrineConnection $conn)
+    {
+        $params = $conn->getParams();
+        return $params['dbname'];
+    }
 }
